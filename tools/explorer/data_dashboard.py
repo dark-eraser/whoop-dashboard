@@ -151,6 +151,7 @@ login_container.empty()
 
 # load the latest metrics
 baseline_days = st.slider("Days to load", 1, 180, 30, 1)
+baseline_days_test = st.slider("Days to load test", 1, 180, 30, 1, key="test")
 # baseline_days = int(baseline_days)
 # get datetime rounded to 10 min
 now = datetime.now()
@@ -171,7 +172,7 @@ tab_trends, tab_plots = st.tabs(
 def load_metrics(baseline_days: int, today) -> Dict:
     start = today - timedelta(days=baseline_days + 1)
     today = "2024-05-22"
-    start = "2024-04-01"
+    # start = "2024-04-01"
     rec, _ = client.recovery.collection_df(start=start, end=today, get_all_pages=True)
     sleep, _ = client.sleep.collection_df(start=start, end=today, get_all_pages=True)
     cycle, _ = client.cycle.collection_df(start=start, end=today, get_all_pages=True)
@@ -189,7 +190,7 @@ with st.spinner(text="loading metrics..."):
 def compute_average_sleep_efficiency(start, end, sleep):
     """Computes the average sleep for a given time period."""
     # filter data
-    sleep_copy = sleep[(pd.to_datetime(sleep["end"]) >= today - timedelta(days=7)) & (pd.to_datetime(sleep["end"]) <= end)]
+    sleep_copy = sleep[(pd.to_datetime(sleep["end"]) >= start) & (pd.to_datetime(sleep["end"]) <= end)]
     # sleep, _ = client.sleep.collection_df(start=start, end=end, get_all_pages=True)
     # compute average
     avg_sleep_efficiency = sleep_copy["score.sleep_efficiency_percentage"].mean()
@@ -229,7 +230,7 @@ with tab_trends:
     print(get_workouts_per_week(workout))
     count = get_workouts_per_week(workout).shape[0]
     print(count)
-    sleep_this_week_avg, sleep_period_avg = get_period_average(sleep, today - timedelta(days=7), today)
+    sleep_this_week_avg, sleep_period_avg = get_period_average(sleep, today - timedelta(days=baseline_days_test), today)
     # recovery_this_week_avg, recovery_period_avg = get_period_average(rec, today - timedelta(days=baseline_days), today)
     # workout_this_week_avg, workout_period_avg = get_period_average(workout, today - timedelta(days=baseline_days), today)
     
