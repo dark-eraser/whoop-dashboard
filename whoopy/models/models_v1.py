@@ -69,7 +69,7 @@ class UserData(BaseModel):
                 date = datetime.strptime(data[dt], "%Y-%m-%dT%H:%M:%S.%fZ")
                 data[dt] = th.any_to_datetime(date) + td
         data = cls._dict_parse(data)
-
+        print(data)
         return cls(**data)
 
 
@@ -89,7 +89,7 @@ class UserCycle(UserData):
 
     id: int
     start: datetime
-    end: datetime = None
+    end: datetime 
     score: UserCycleScore = None
 
     @classmethod

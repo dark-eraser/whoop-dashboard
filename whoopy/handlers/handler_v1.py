@@ -22,7 +22,6 @@ class WhoopHandler:
 
         if date is None:
             raise ValueError(f"Invalid Date provided: {date}")
-
         # make sure this is converted to correct format used by whoop
         return new_date.isoformat() + "Z"
 
