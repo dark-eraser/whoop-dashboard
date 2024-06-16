@@ -9,12 +9,20 @@ from Client import WhoopClientSingleton  # Import the WhoopClientSingleton class
 from typing import Tuple, Dict
 import webbrowser
 from urllib.parse import urlparse, parse_qs
+# from st_pages import show_pages_from_config, add_page_title
 
 def extract_code_from_url(url: str) -> str:
     """Extracts the authorization code from the callback URL."""
     parsed_url = urlparse(url)
     query_params = parse_qs(parsed_url.query)
     return query_params.get('code', [None])[0]
+
+
+# Either this or add_indentation() MUST be called on each page in your
+# app to add indendation in the sidebar
+# add_page_title()
+
+# show_pages_from_config()
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 st.set_page_config(page_title="Whoop", page_icon="🏃‍♂️", layout="wide")

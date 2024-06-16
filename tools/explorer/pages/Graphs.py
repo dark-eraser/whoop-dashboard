@@ -42,7 +42,7 @@ today = now.replace(second=0, microsecond=0, minute=rounded_minutes)
 # Sidebar
 st.sidebar.header("Whoop API")
 baseline_days= st.sidebar.slider("Days to load", 1, 180, 60, 1)
-PERIOD_START,PERIOD_END = pd.to_datetime(st.sidebar.date_input("Select Period to Compare Current Week with", (today - timedelta(baseline_days), today), today - timedelta(baseline_days),today,format="MM.DD.YYYY"))
+PERIOD_START,PERIOD_END = pd.to_datetime(st.sidebar.date_input("Select Period", (today - timedelta(baseline_days), today), today - timedelta(baseline_days),today,format="MM.DD.YYYY"))
 
 @st.cache_data()
 def load_metrics(baseline_days: int, today) -> Dict:
