@@ -1,3 +1,5 @@
 config.json
 /Users/darkeraser/Documents/dev/whoop-dashboard/config.json
 /Users/darkeraser/Documents/dev/whoop-dashboard/tools/explorer/pages/.tokens/*
+tools/explorer/pages/.tokens/*
+tools/explorer/.tokens/*
